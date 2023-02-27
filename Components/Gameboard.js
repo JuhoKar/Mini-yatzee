@@ -47,7 +47,7 @@ export default Gameboard = ({ route }) => {
     for (let spot = 0; spot < MAX_SPOT; spot++) {
         pointRow.push(
             <Col key= {"points" + spot}>
-                <Text key={"points" + spot} style={styles.points}>0</Text>
+                <Text key={"points" + spot} style={styles.points}>{getSpotTotal(spot)}</Text>
             </Col>
             )
 
@@ -58,11 +58,13 @@ export default Gameboard = ({ route }) => {
     buttonRow.push(
     <Col key={"buttowRow" + diceButton}>
         <Pressable
+        onPress={() => selectDicePoints(diceButton)}
         key={"buttowRow" + diceButton}>
             <MaterialCommunityIcons
                 name={"numeric-" + (diceButton +1) + "-circle"}
                 key={"ButtonRow" + diceButton}
-                size={40}>
+                size={40}
+                color={getDicePointsColor(diceButton)}>
             </MaterialCommunityIcons>
         </Pressable>
     </Col>
@@ -76,11 +78,20 @@ export default Gameboard = ({ route }) => {
     }, []);
 
     function getDiceColor(i) {
-        if (board.every((val, i, arr) => val === arr[0])) {
-          return "orange";
+       // if (board.every((val, i, arr) => val === arr[0])) {
+         // return "orange";
+      //  }
+       // else {
+          return selectedDices[i] ? "black" : "steelblue";
+       // }
+      }
+
+      function getDicePointsColor(i) {
+        if (selectedDicePoints[i]) {
+          return "black";
         }
         else {
-          return selectedDices[i] ? "black" : "steelblue";
+          return "steelblue";
         }
       }
 
@@ -89,15 +100,38 @@ export default Gameboard = ({ route }) => {
         dices[i] = selectedDices[i] ? false : true;
         setSelectedDices(dices);
       }
-
+      function getSpotTotal(i) {
+        return dicePointsTotal[i];
+      }
+      function selectDicePoints(i) {
+        let selected = [...selectedDices];
+        let selectedPoints = [...selectedDicePoints];
+        let points = [...dicePointsTotal];
+        if (!selectedPoints[i]) {
+          selectedPoints[i] = true;
+          let nbrOfDices = diceSpots.reduce((total, x) => (x === (i + 1) ? total + 1: total), 0);
+          points[i] = nbrOfDices * (i + 1);
+          setDicepointsTotal(points);
+        } 
+        selected.fill(false);
+        setSelectedDices(selected);
+        setSelectedDicePoints(selectedPoints);
+        setNbrOfThrowsLeft(NBR_OF_THROWS);
+        setSelectedDicePoints(selectedPoints);
+        return points[i];
+      }
       function throwDices() {
+        let spots = [...diceSpots];
         for (let i = 0; i < NBR_OF_DICES; i++) {
           if (!selectedDices[i]) {
             let randomNumber = Math.floor(Math.random() * 6 + 1);
             board[i] = 'dice-' + randomNumber;
+            spots[i] = randomNumber;
           }
         }
         setNbrOfThrowsLeft(nbrOfThrowsLeft-1);
+        setDiceSpots(spots);
+        setStatus('Select and throw dices again');
       }
 
     return (
