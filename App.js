@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styles from './Style/Styles';
 
+
 const Tab = createBottomTabNavigator();
 
 

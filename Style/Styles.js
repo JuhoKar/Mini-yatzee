@@ -9,12 +9,16 @@ export default StyleSheet.create({
     marginTop: 30,
     marginBottom: 15,
     backgroundColor: 'skyblue',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   footer: {
     marginTop: 20,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#8e918f',
     flexDirection: 'row'
+  },
+  footerText: {
+    textAlign: 'center',
+    fontSize: 20
   },
   title: {
     color: '#fff',
@@ -22,7 +26,7 @@ export default StyleSheet.create({
     flex: 1,
     fontSize: 23,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   author: {
     color: '#fff',
@@ -78,5 +82,41 @@ export default StyleSheet.create({
     width: 280,
     alignContent: 'center'
   },
+  header: {
+    alignContent: 'center',
+    padding: 15
+  },
+  headerText: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  homeText: {
+    fontSize: 20,
+    textAlign: 'center',
+    paddingBottom: 15
+  },
   
+  textInput: {
+    justifyContent: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+    padding: 17,
+    borderWidth: 2,
+    borderRadius: 10
+  },
+  
+  pressable: {
+    alignContent: 'center',
+    marginRight: 100,
+    marginLeft: 100,
+    marginTop: 5,
+    textAlign: 'center',
+    borderWidth: 3,
+    borderRadius: 10
+  },
+  ruleText: {
+    margin: 10
+
+  }
 });
